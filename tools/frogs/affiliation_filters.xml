@@ -138,7 +138,7 @@
         <data format="html" name="output_summary" label="${tool.name}: report.html" from_work_dir="report.html"/>
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="4">
             <param name="input_fasta" value="references/04-filters.fasta"/>
             <param name="input_biom" value="references/06-affiliation.biom"/>
             <param name="mode" value="hide"/>
@@ -159,7 +159,7 @@
             <output name="output_multihit" file="references/07-impacted_clusters_masked_multihit.tsv" compare="diff" lines_diff="0"/>
             <output name="output_biom" file="references/07-affiliation_masked.biom" compare="sim_size" delta="0"/>
         </test>
-        <test>
+        <test expect_num_outputs="5">
             <param name="input_fasta" value="references/04-filters.fasta"/>
             <param name="input_biom" value="references/06-affiliation.biom"/>
             <param name="mode" value="delete"/>

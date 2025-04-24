@@ -72,6 +72,7 @@
     <test>
       <param name="input_file" value="references/27-frogsfunc_functions_unstrat.tsv" />
       <param name="category" value="16S" />
+      <param name="map_file" value="Metacyc" />
 
       <output name="abund" file="references/28-frogsfunc_pathways_unstrat.tsv" compare="diff" lines_diff="0" />
       <output name="summary_file" file="references/28-frogsfunc_pathways_report.html" compare="diff" lines_diff="0" />

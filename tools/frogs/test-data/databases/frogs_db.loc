@@ -22,14 +22,14 @@
 #tool-data directory.The frogs_db.loc file has this format (longer white space characters are
 #TAB characters):
 #
-#<unique_database_name>   <file_path>
+#<unique_database_id>	<unique_database_name>	<file_path>
 #
 #First column will be the visible name in galaxy.
 #So, for example, if you had 16S silva 128 indexed stored in
 #/galaxy_databanks/16S/silva_128/ 
 #then the frogs_db.loc entry would look like this:
 #
-#silva 128 16S  /galaxy_databanks/16S/silva_128/silva_128_16S.fasta
+#silave_128_16S	silva 128 16S	/galaxy_databanks/16S/silva_128/silva_128_16S.fasta
 #
 #and your /galaxy_databanks/16S/silva_128/ directory
 #would contain index files:
@@ -47,8 +47,8 @@
 #-rw-r--r-- 1 mbernard FROGS     964048  5 déc.  16:57 wordConditionalProbIndexArr.txt
 #
 #
-#<name>    <name>    <file_path>
+#<value>	<name>	<file_path>
 #
 # EXAMPLE FOR TEST :
-ITS1_test	ITS1_test	${__HERE__}/frogs_db_data/ITS1.rdp.fasta
+ITS1_test	ITS1 test	${__HERE__}/frogs_db_data/ITS1.rdp.fasta
 

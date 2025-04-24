@@ -23,10 +23,10 @@
 #If you are not comfortable with picrust2 command lines, just create .loc files 
 #with EXAMPLE FOR TEST files remembering to replace <PATH_TO> with the real path.
 #
-#<db_id>	<db_name>	<marker_gene>	<path_to_mapfiles>
+#<db_id>	<db_name>	<marker_gene>	<path_to_mapfiles>	<version>
 #
 #First column will be the visible name in galaxy.
 #
 #
 # EXAMPLE FOR TEST :
-pro_metacyc_pathway	Metacyc	16S	${__HERE__}/frogs_picrust2_db/pathway_mapfiles/metacyc_path2rxn_struc_filt_pro.txt  2.5.1
+pro_metacyc_pathway	Metacyc	16S	${__HERE__}/frogs_picrust2_db/pathway_mapfiles/metacyc_path2rxn_struc_filt_pro.txt	2.5.1

@@ -74,7 +74,7 @@
         </data>
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="1">
             <param name="var1" value="EnvType"/>
             <conditional name="analysis_type">
                 <param name="analysis" value="ASV"/>
