@@ -48,10 +48,7 @@
         <test>
             <param name="input_biom" value="references/06-affiliation.biom"/>
             <param name="input_fasta" value="references/04-filters.fasta"/>
-            <conditional name="is_HVL">
-                <param name="HVL_amplicon" value="true"/>
-                <param name="reference" value="Unite_extract_ITS1_test"/>
-            </conditional>
+            <param name="reference" value="Unite_extract_ITS1_test"/>
             <output name="compo_out" file="references/08-affiliation_postprocessed.compo.tsv" compare="diff" lines_diff="0"/>
             <output name="fasta_out" file="references/08-affiliation_postprocessed.fasta" compare="diff" lines_diff="0"/>
             <output name="biom_out" file="references/08-affiliation_postprocessed.biom" compare="sim_size" delta="0"/>

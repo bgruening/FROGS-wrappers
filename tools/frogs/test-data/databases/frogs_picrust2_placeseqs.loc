@@ -23,7 +23,7 @@
 #If you are not comfortable with picrust2 command lines, just create .loc files 
 #with EXAMPLE FOR TEST files remembering to replace <PATH_TO> with the real path.
 #
-#<identifiant>	<marker_gene>	<path_to_default_dir> <path_to_marker_copy_numbers> <placement_tool>	<frogs_version>
+#<value>	<name_as_marker_gene>	<path_to_default_dir> <path_to_marker_copy_numbers> <placement_tool>	<version>
 #
 #default dir must contain these files:
 #

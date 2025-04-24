@@ -61,7 +61,8 @@
         </data>
     </outputs>
     <tests>
-        <test>
+        <test expect_num_outputs="1">
+            <param name="analysis" value="ASV"/>
             <param name="abundanceData" value="references/16-phylo_import.Rdata"/>
             <param name="dds" value="references/23-deseq2_preprocess.Rdata"/>
             <param name="var" value="EnvType" />
@@ -73,7 +74,7 @@
             <param name="padj" value="0.05" />
             <output name="html">
                 <assert_contents>
-                    <has_text text="FROGSSTAT DESeq2: Visualisation" />
+                    <has_text text="FROGSSTAT DESeq2: Visualisation (version 4.2.0)" />
                     <has_text text='["otu_01582",' />
                     <!-- baseMean value of otu_01582 -->
                     <has_text text='[52.445' />
