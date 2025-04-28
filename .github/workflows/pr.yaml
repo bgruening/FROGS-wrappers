@@ -6,6 +6,8 @@ on:
   pull_request:
     branches:
       - master
+  release:
+      types: [prereleased]
 env:
   GALAXY_FORK: galaxyproject
   GALAXY_BRANCH: release_24.2
