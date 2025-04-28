@@ -6,8 +6,7 @@
 
 Visit our web site : http://frogs.toulouse.inrae.fr/
 
-[![Release](https://img.shields.io/badge/release-4.2.0+galaxy1-blue.svg)](https://github.com/geraldinepascal/FROGS-wrappers/releases)   ![Date](https://img.shields.io/badge/date-May%202023-red.svg)   [![Galaxy Tool Linting and Tests for push and PR](https://github.com/geraldinepascal/FROGS-wrappers/actions/workflows/pr.yaml/badge.svg?branch=master)](https://github.com/geraldinepascal/FROGS-wrappers/actions/workflows/pr.yaml)   [<img src="https://www.podcastscience.fm/wp-content/uploads/2017/12/deezer.png" width="5%" style="display: block; margin: auto;"/>](https://www.deezer.com/fr/playlist/5233843102?utm_source=deezer&utm_content=playlist-5233843102&utm_term=18632989_1545296531&utm_medium=web)
-
+[![Release](https://img.shields.io/badge/release-4.2.0+galaxy1-blue.svg)](https://github.com/geraldinepascal/FROGS-wrappers/releases)   ![Date](https://img.shields.io/badge/date-May%202023-red.svg)   [![Galaxy Tool Linting and Tests for push and PR](https://github.com/geraldinepascal/FROGS-wrappers/actions/workflows/pr.yaml/badge.svg?branch=master)](https://github.com/geraldinepascal/FROGS-wrappers/actions/workflows/pr.yaml)
 
 
 
