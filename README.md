@@ -6,7 +6,7 @@
 
 Visit our web site : http://frogs.toulouse.inrae.fr/
 
-[![Release](https://img.shields.io/badge/release-4.2.0+galaxy1-blue.svg)](https://github.com/geraldinepascal/FROGS-wrappers/releases)   ![Date](https://img.shields.io/badge/date-May%202023-red.svg)   [![Galaxy Tool Linting and Tests for push and PR](https://github.com/geraldinepascal/FROGS-wrappers/actions/workflows/pr.yaml/badge.svg?branch=master)](https://github.com/geraldinepascal/FROGS-wrappers/actions/workflows/pr.yaml)
+[![Release](https://img.shields.io/badge/release-4.2.0+galaxy1-blue.svg)](https://github.com/geraldinepascal/FROGS-wrappers/releases)   ![Date](https://img.shields.io/badge/date-April%202025-red.svg)   [![Galaxy Tool Linting and Tests for push and PR](https://github.com/geraldinepascal/FROGS-wrappers/actions/workflows/pr.yaml/badge.svg?branch=master)](https://github.com/geraldinepascal/FROGS-wrappers/actions/workflows/pr.yaml)
 
 
 
