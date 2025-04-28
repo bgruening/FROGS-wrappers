@@ -1,5 +1,15 @@
-# v4.2.0+galaxy1 [DEV]
+# v4.2.0+galaxy1 [2025-04]
+
 This version refers to FROGS_4.2.0 suit.
+### Function added:
+
+* FROGSPreprocess : Allow vsearch to deal with AVITI reads (higher max quality value allowed)
+
+### Updates
+
+large update was done on wrapper tests sections.
+
+# v4.1.0+galaxy1 [2023-05]
 
 ### Function added:
 
