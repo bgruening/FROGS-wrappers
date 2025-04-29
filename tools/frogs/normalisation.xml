@@ -23,27 +23,26 @@
     </macros>
     <expand macro="requirements"/>
 
-        <stdio>
-                <exit_code range="1:" />
-                <exit_code range=":-1" />
-        </stdio>
-	<command>
-		which normalisation.py;
-
+	<command detect_errors="exit_code">
+		[<![CDATA[ 
 		normalisation.py 
-		                       --input-biom '$input_biom'
-		                       --input-fasta '$input_fasta'
-		                       #if $sampling_method.sampling_by_min == "yes"
-		                       	 --sampling-by-min
-		                       #else
-		                         --num-reads '$sampling_method.num_reads'
-		                       	 #if $sampling_method.delete_samples == "true"
-		                           --delete-samples
-		                         #end if
-		                       #end if
-		                       --output-biom '$output_biom'
-		                       --output-fasta '$output_fasta'
-		                       --summary-file '$summary_file'
+			--input-biom '$input_biom'
+			--input-fasta '$input_fasta'
+
+			#if $sampling_method.sampling_by_min == "yes"
+				--sampling-by-min
+			#else
+				--num-reads '$sampling_method.num_reads'
+
+				#if $sampling_method.delete_samples == "true"
+				--delete-samples
+				#end if
+			#end if
+
+			--output-biom '$output_biom'
+			--output-fasta '$output_fasta'
+			--summary-file '$summary_file'
+		]]>					
 	</command>
 	<inputs>
 		<param format="fasta" argument="--input-fasta" type="data" label="Sequence file" help="Sequence file to normalise (format: fasta)." />

@@ -1,14 +1,16 @@
-<tool id="FROGS_biom_to_stdBiom" name="FROGS BIOM to std BIOM" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_biom_to_stdBiom" name="FROGS BIOM to std BIOM" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
 	<description>Converts a FROGS BIOM in fully compatible BIOM </description>
     <macros>
         <import>macros.xml</import>
     </macros>
     <expand macro="requirements"/>
     <command detect_errors="exit_code">
-	biom_to_stdBiom.py
-		--input-biom '$input_biom'
-		--output-biom '$output_biom'
-		--output-metadata '$output_blast_details'
+		<![CDATA[ 
+			biom_to_stdBiom.py
+				--input-biom '$input_biom'
+				--output-biom '$output_biom'
+				--output-metadata '$output_blast_details'
+		]]>
 	</command>
 	<inputs>
 		<!-- Files -->

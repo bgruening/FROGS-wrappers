@@ -1,4 +1,4 @@
-<tool id="FROGS_preprocess" name="FROGS_1 Pre-process" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_preprocess" name="FROGS_1 Pre-process" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
     <description>merging, denoising and dereplication</description>
      <macros>
         <import>macros.xml</import>
@@ -9,79 +9,81 @@
         <requirement type="package" version="2.10">cutadapt</requirement>
     </expand> 
     <command detect_errors="exit_code">
-        preprocess.py '$sequencer_type.sequencer_selected'
-        --output-dereplicated '$dereplicated_file' --output-count '$count_file' --summary '$summary_file'
-        @CPUS@
-        --min-amplicon-size $sequencer_type.min_amplicon_size
-        --max-amplicon-size $sequencer_type.max_amplicon_size
-        #if $sequencer_type.sequencer_selected in ('illumina', 'longreads')
-            #if $sequencer_type.is_primer_in_seq.primer_choice == "true"
-                --five-prim-primer '$sequencer_type.is_primer_in_seq.five_prim_primer'
-                --three-prim-primer '$sequencer_type.is_primer_in_seq.three_prim_primer'
-            #else
-                --without-primers
-            #end if
-        #else
-            --five-prim-primer '$sequencer_type.five_prim_primer'
-            --three-prim-primer '$sequencer_type.three_prim_primer'
-        #end if
-
-        #if $sequencer_type.input_type.input_type_selected == "archive"
-            --input-archive '$sequencer_type.input_type.archive_file'
-            #if $sequencer_type.sequencer_selected == "illumina" and $sequencer_type.input_type.archive_type.archive_type_selected == "already_merged"
-                --already-contiged
-            #elif $sequencer_type.sequencer_selected == "illumina"
-                --R1-size $sequencer_type.input_type.archive_type.R1_size
-                --R2-size $sequencer_type.input_type.archive_type.R2_size
-                --mismatch-rate $sequencer_type.input_type.archive_type.mismatch_rate
-                --merge-software $sequencer_type.input_type.archive_type.merge_software_type.merge_software
-                #if $sequencer_type.input_type.archive_type.merge_software_type.merge_software == "flash"
-                    --expected-amplicon-size $sequencer_type.input_type.archive_type.merge_software_type.expected_amplicon_size
-                #end if
-                #if $sequencer_type.input_type.archive_type.keep_unmerged == "Yes"
-                    --keep-unmerged
-                #end if
-            #end if
-        #else
-            #set $sep = ' '
-            #if $sequencer_type.sequencer_selected == "illumina"
-                --samples-names
-                #for $current in $sequencer_type.input_type.files_by_samples_type.samples
-                    $sep'${current.name.strip()}'
-                #end for
-                --input-R1
-                #for $current in $sequencer_type.input_type.files_by_samples_type.samples
-                    $sep'${current.R1_file}'
-                #end for
-                #if $sequencer_type.input_type.files_by_samples_type.files_by_samples_type_selected == "already_merged"
-                    --already-contiged
+        [<![CDATA[ 
+            preprocess.py '$sequencer_type.sequencer_selected'
+            --output-dereplicated '$dereplicated_file' --output-count '$count_file' --summary '$summary_file'
+            @CPUS@
+            --min-amplicon-size $sequencer_type.min_amplicon_size
+            --max-amplicon-size $sequencer_type.max_amplicon_size
+            #if $sequencer_type.sequencer_selected in ('illumina', 'longreads')
+                #if $sequencer_type.is_primer_in_seq.primer_choice == "true"
+                    --five-prim-primer '$sequencer_type.is_primer_in_seq.five_prim_primer'
+                    --three-prim-primer '$sequencer_type.is_primer_in_seq.three_prim_primer'
                 #else
-                    --input-R2
-                    #for $current in $sequencer_type.input_type.files_by_samples_type.samples
-                        $sep'${current.R2_file}'
-                    #end for
-                    --R1-size $sequencer_type.input_type.files_by_samples_type.R1_size
-                    --R2-size $sequencer_type.input_type.files_by_samples_type.R2_size
-                    --mismatch-rate $sequencer_type.input_type.files_by_samples_type.mismatch_rate
-                    --merge-software $sequencer_type.input_type.files_by_samples_type.merge_software_type.merge_software
-                    #if $sequencer_type.input_type.files_by_samples_type.merge_software_type.merge_software == "flash"
-                        --expected-amplicon-size $sequencer_type.input_type.files_by_samples_type.merge_software_type.expected_amplicon_size
+                    --without-primers
+                #end if
+            #else
+                --five-prim-primer '$sequencer_type.five_prim_primer'
+                --three-prim-primer '$sequencer_type.three_prim_primer'
+            #end if
+
+            #if $sequencer_type.input_type.input_type_selected == "archive"
+                --input-archive '$sequencer_type.input_type.archive_file'
+                #if $sequencer_type.sequencer_selected == "illumina" and $sequencer_type.input_type.archive_type.archive_type_selected == "already_merged"
+                    --already-contiged
+                #elif $sequencer_type.sequencer_selected == "illumina"
+                    --R1-size $sequencer_type.input_type.archive_type.R1_size
+                    --R2-size $sequencer_type.input_type.archive_type.R2_size
+                    --mismatch-rate $sequencer_type.input_type.archive_type.mismatch_rate
+                    --merge-software $sequencer_type.input_type.archive_type.merge_software_type.merge_software
+                    #if $sequencer_type.input_type.archive_type.merge_software_type.merge_software == "flash"
+                        --expected-amplicon-size $sequencer_type.input_type.archive_type.merge_software_type.expected_amplicon_size
                     #end if
-                    #if $sequencer_type.input_type.files_by_samples_type.keep_unmerged == "Yes"
+                    #if $sequencer_type.input_type.archive_type.keep_unmerged == "Yes"
                         --keep-unmerged
                     #end if
                 #end if
             #else
-                --samples-names
-                #for $current in $sequencer_type.input_type.samples
-                    $sep'${current.name.strip()}'
-                #end for            
-                --input-R1
-                #for $current in $sequencer_type.input_type.samples
-                    $sep'${current.R1_file}'
-                #end for
+                #set $sep = ' '
+                #if $sequencer_type.sequencer_selected == "illumina"
+                    --samples-names
+                    #for $current in $sequencer_type.input_type.files_by_samples_type.samples
+                        $sep'${current.name.strip()}'
+                    #end for
+                    --input-R1
+                    #for $current in $sequencer_type.input_type.files_by_samples_type.samples
+                        $sep'${current.R1_file}'
+                    #end for
+                    #if $sequencer_type.input_type.files_by_samples_type.files_by_samples_type_selected == "already_merged"
+                        --already-contiged
+                    #else
+                        --input-R2
+                        #for $current in $sequencer_type.input_type.files_by_samples_type.samples
+                            $sep'${current.R2_file}'
+                        #end for
+                        --R1-size $sequencer_type.input_type.files_by_samples_type.R1_size
+                        --R2-size $sequencer_type.input_type.files_by_samples_type.R2_size
+                        --mismatch-rate $sequencer_type.input_type.files_by_samples_type.mismatch_rate
+                        --merge-software $sequencer_type.input_type.files_by_samples_type.merge_software_type.merge_software
+                        #if $sequencer_type.input_type.files_by_samples_type.merge_software_type.merge_software == "flash"
+                            --expected-amplicon-size $sequencer_type.input_type.files_by_samples_type.merge_software_type.expected_amplicon_size
+                        #end if
+                        #if $sequencer_type.input_type.files_by_samples_type.keep_unmerged == "Yes"
+                            --keep-unmerged
+                        #end if
+                    #end if
+                #else
+                    --samples-names
+                    #for $current in $sequencer_type.input_type.samples
+                        $sep'${current.name.strip()}'
+                    #end for            
+                    --input-R1
+                    #for $current in $sequencer_type.input_type.samples
+                        $sep'${current.R1_file}'
+                    #end for
+                #end if
             #end if
-        #end if
+        ]]>
     </command>
     <inputs>
         <conditional name="sequencer_type">

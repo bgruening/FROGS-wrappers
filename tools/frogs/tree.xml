@@ -1,4 +1,4 @@
-<tool id="FROGS_Tree" name="FROGS Tree" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_Tree" name="FROGS Tree" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
     <description>Reconstruction of phylogenetic tree  </description>
     <macros>
         <import>macros.xml</import>
@@ -11,12 +11,14 @@
         <requirement type="package" version="2.7.0">r-phangorn</requirement>
     </expand>
     <command detect_errors="exit_code">
-        tree.py
-            --input-sequences '$input_otu'
-            --biom-file '$biomfile'
-            @CPUS@
-            --out-tree '$out_tree'
-            --html '$html'
+        <![CDATA[ 
+            tree.py
+                --input-sequences '$input_otu'
+                --biom-file '$biomfile'
+                @CPUS@
+                --out-tree '$out_tree'
+                --html '$html'
+        ]]>
     </command>
     <inputs>
         <!-- Files -->

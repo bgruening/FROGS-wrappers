@@ -1,33 +1,39 @@
-<tool id="FROGS_affiliation_stats" name="FROGS_6_Affiliation_Stat" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_affiliation_stats" name="FROGS_6_Affiliation_Stat" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
 	<description>Process some metrics on taxonomies </description>
     <macros>
         <import>macros.xml</import>
     </macros>
     <expand macro="requirements"/>
     <command detect_errors="exit_code">
-		affiliation_stats.py
-		    --input-biom '$biom'
-		    --output-file '$summary_file'
-		    --taxonomic-ranks $taxonomic_ranks
-		    --rarefaction-ranks $rarefaction_ranks
-		    #if $affiliation.affiliation_type == "FROGS_blast"
-		    	--multiple-tag 'blast_affiliations'
-		        --tax-consensus-tag 'blast_taxonomy'
-		        --identity-tag 'perc_identity'
-		        --coverage-tag 'perc_query_coverage'
-			#else if $affiliation.affiliation_type == "FROGS_rdp"
-				--taxonomy-tag 'rdp_taxonomy'
-				--bootstrap-tag 'rdp_bootstrap'
-			#else
-				--taxonomy-tag '$affiliation.taxonomy_tag'
-				#if $affiliation.bootstrap_tag
-					--bootstrap-tag '$affiliation.bootstrap_tag'
+		<![CDATA[ 
+			affiliation_stats.py
+				--input-biom '$biom'
+				--output-file '$summary_file'
+				--taxonomic-ranks $taxonomic_ranks
+				--rarefaction-ranks $rarefaction_ranks
+
+				#if $affiliation.affiliation_type == "FROGS_blast"
+					--multiple-tag 'blast_affiliations'
+					--tax-consensus-tag 'blast_taxonomy'
+					--identity-tag 'perc_identity'
+					--coverage-tag 'perc_query_coverage'
+				#else if $affiliation.affiliation_type == "FROGS_rdp"
+					--taxonomy-tag 'rdp_taxonomy'
+					--bootstrap-tag 'rdp_bootstrap'
+				#else
+					--taxonomy-tag '$affiliation.taxonomy_tag'
+
+					#if $affiliation.bootstrap_tag
+						--bootstrap-tag '$affiliation.bootstrap_tag'
+					#end if
+
+					#if $affiliation.identity_tag and $affiliation.coverage_tag
+						--identity-tag '$affiliation.identity_tag'
+						--coverage-tag '$affiliation.coverage_tag'
+					#end if
+					
 				#end if
-				#if $affiliation.identity_tag and $affiliation.coverage_tag
-					--identity-tag '$affiliation.identity_tag'
-					--coverage-tag '$affiliation.coverage_tag'
-				#end if
-			#end if
+		]]>
 	</command>
 	<inputs>
 		<!-- Files -->
@@ -37,11 +43,11 @@
 		<param argument="--rarefaction-ranks" type="text"  optional="false" value="Class Order Family Genus Species" 
 			label="Rarefaction ranks" help="The ranks that will be evaluated in rarefaction. Each rank is separated by one space.">
 			<sanitizer invalid_char="">
-                <valid initial="string.letters">
-                    <add value=" " />
-                </valid>
-            </sanitizer>
-            <validator type="regex">[A-Za-z ]+</validator>
+				<valid initial="string.letters">
+					<add value=" " />
+				</valid>
+			</sanitizer>
+			<validator type="regex">[A-Za-z ]+</validator>
 		</param>
 		<conditional name="affiliation">
 			<param name="affiliation_type" type="select" label="Affiliation processed" help="Select the type of affiliation processed. If your affiliation has been processed with an external tool: use 'Custom'.">
@@ -76,10 +82,6 @@
 			<param name="rarefaction_ranks" value="Family Genus Species" />
 			<conditional name="affiliation">
 				<param name="affiliation_type" value="FROGS_blast" />
-				<param name="taxonomic_ranks" value="Domain Phylum Class Order Family Genus Species" />
-				<param name="taxonomy_tag" value="blast_taxonomy" />
-				<param name="identity_tag" value="perc_identity" />
-				<param name="coverage_tag" value="perc_query_coverage" />
 			</conditional>
 			<!-- differences may exist due to random function to generat rarefaction curves -->
 			<output name="summary_file" file="references/11-affiliationsStat.html" compare="sim_size" delta="20" />

@@ -1,4 +1,4 @@
-<tool id="FROGS_remove_chimera" name="FROGS_3 Remove chimera" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_remove_chimera" name="FROGS_3 Remove chimera" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
     <description>Remove PCR chimera in each sample </description>
     <macros>
         <import>macros.xml</import>
@@ -7,17 +7,19 @@
         <requirement type="package" version="2.17.0">vsearch</requirement>
     </expand>
     <command detect_errors="exit_code">
-		remove_chimera.py
-		    @CPUS@
-		    --input-fasta '$sequence_file' --non-chimera '$non_chimera_fasta'
-		    --summary '$summary_file'
-		    #if $abundance_type.abundance_type_selected == "biom"
-		        --input-biom '$abundance_biom'
-		        --out-abundance '$out_abundance_biom'
-	        #else
-		       --input-count '$abundance_count'
-		        --out-abundance '$out_abundance_count'
-		    #end if
+        [<![CDATA[ 
+            remove_chimera.py
+                @CPUS@
+                --input-fasta '$sequence_file' --non-chimera '$non_chimera_fasta'
+                --summary '$summary_file'
+                #if $abundance_type.abundance_type_selected == "biom"
+                    --input-biom '$abundance_biom'
+                    --out-abundance '$out_abundance_biom'
+                #else
+                --input-count '$abundance_count'
+                    --out-abundance '$out_abundance_count'
+                #end if
+        ]]>
     </command>
     <inputs>
         <!-- Files -->

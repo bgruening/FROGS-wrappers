@@ -24,44 +24,44 @@
 
   <expand macro="requirements_frogsfunc" />
 
-  <stdio>
-    <exit_code range="1:" />
-    <exit_code range=":-1" />
-  </stdio>
-	<command >   
+  <command detect_errors="exit_code">
+    [<![CDATA[    
        frogsfunc_pathways.py
           --input-file $input_file
+
           #if $normalisation
             --normalisation
           #end if
-	    --map $map_file.value
-	    --summary $summary_file
+
+          --map $map_file.value
+          --summary $summary_file
+    ]]>
 	</command> 
 	<inputs>
         <!-- Input files -->       
         <param argument="--input-file" format="tsv" type="data" label="Function abundance file" help="TSV function abundances table from FROGSFUNC_2_functions tool, FROGSFUNC_2_functions_unstrat_EC.tsv for Metacyc database or FROGSFUNC_2_functions_unstrat_KO.tsv for Kegg database (unstratified table)." optional="false"/>
 
         <!-- References -->
-	      <param name="category" type="select" label="Taxonomic marker" help="Taxonomic marker of interest." multiple="false" display="radio">
-          <options from_data_table="frogs_picrust2_pathways">
-            <column name='name' index='2' />
-            <column name='value' index='2' />
-            <filter type="unique_value" column='2'/>
-              <validator type="no_options" message="A built-in database is not available" />
-          </options>
-			  </param>
+        <param name="category" type="select" label="Taxonomic marker" help="Taxonomic marker of interest." multiple="false" display="radio">
+            <options from_data_table="frogs_picrust2_pathways">
+                <column name='name' index='2' />
+                <column name='value' index='2' />
+                <filter type="unique_value" column='2'/>
+                    <validator type="no_options" message="A built-in database is not available" />
+            </options>
+        </param>
         <param name="map_file" type='select' label="Pathway reference" help="For 16S marker, choose Metacyc or KEGG in accordance with your choice in the FROGSFUNC_1_placeseqs_copynumbers tool. For ITS or 18S marker, Metacyc is the only valid option." optional="false" multiple='false' display='radio'>
-          <options from_data_table="frogs_picrust2_pathways">
-            <column name='name' index='1'/>
-            <column name='value' index='3'/>
-            <filter type="param_value" ref="category" column="2" />               
-              <validator type="no_options" message="A built-in database is not available" />
-          </options>
+            <options from_data_table="frogs_picrust2_pathways">
+                <column name='name' index='1'/>
+                <column name='value' index='3'/>
+                <filter type="param_value" ref="category" column="2" />               
+                <validator type="no_options" message="A built-in database is not available" />
+            </options>
         </param>
 
         <!-- Parameters-->
         <param argument="--normalisation" label="Do you want to normalize the final output table ?" help='Values are divided by sum of columns, then multiplied by 10^6 (CPM values).' type="boolean" />
-        </inputs>
+    </inputs>
 	<outputs>
 		<data format="html" name="summary_file" label="${tool.name}: report.html" from_work_dir="report.html"/>
 		 <data format="tsv" name="abund" label="${tool.name}: frogsfunc_pathways_unstrat.tsv" from_work_dir="frogsfunc_pathways_unstrat.tsv"/>

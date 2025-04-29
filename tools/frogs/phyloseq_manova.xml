@@ -1,15 +1,17 @@
-<tool id="FROGSSTAT_Phyloseq_Multivariate_Analysis_Of_Variance" name="FROGSSTAT Phyloseq Multivariate Analysis Of Variance" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGSSTAT_Phyloseq_Multivariate_Analysis_Of_Variance" name="FROGSSTAT Phyloseq Multivariate Analysis Of Variance" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
     <description>perform Multivariate Analysis of Variance (MANOVA) </description>
     <macros>
         <import>macros.xml</import>
     </macros>
     <expand macro="requirements_phyloseq" />
     <command detect_errors="exit_code">
-    phyloseq_manova.py
-        --rdata '$data'
-        --varExp '$varExp'
-        --distance-matrix '$distance_matrix'
-        --html '$html'
+		[<![CDATA[ 
+			phyloseq_manova.py
+				--rdata '$data'
+				--varExp '$varExp'
+				--distance-matrix '$distance_matrix'
+				--html '$html'
+		]]>
 	</command>
     <inputs>
 		<!-- Files -->

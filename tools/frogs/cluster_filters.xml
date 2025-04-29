@@ -26,58 +26,52 @@
         <requirement type="package" version="2.10">blast</requirement>
     </expand>
 
-        <stdio>
-                <exit_code range="1:" />
-                <exit_code range=":-1" />
-        </stdio>
-
-	<command>
-
+    <command detect_errors="exit_code">
+		<![CDATA[ 
 			cluster_filters.py
-			--nb-cpus \${GALAXY_SLOTS:-1}
-			--input-biom '$input_biom'
-			--input-fasta '$input_fasta'
-			--output-fasta '$output_fasta'
-			--output-biom '$output_biom'
-			--excluded '$output_excluded'
-			--summary '$output_summary'
+				--nb-cpus \${GALAXY_SLOTS:-1}
+				--input-biom '$input_biom'
+				--input-fasta '$input_fasta'
+				--output-fasta '$output_fasta'
+				--output-biom '$output_biom'
+				--excluded '$output_excluded'
+				--summary '$output_summary'
 
-			#if $choice_prevalence_method.prevalence_method == "all"
-				#if $choice_prevalence_method.min_sample_presence
-					--min-sample-presence $choice_prevalence_method.min_sample_presence
+				#if $choice_prevalence_method.prevalence_method == "all"
+					#if $choice_prevalence_method.min_sample_presence
+						--min-sample-presence $choice_prevalence_method.min_sample_presence
+					#end if
+				#else if $choice_prevalence_method.prevalence_method == "replicate"
+					#if $choice_prevalence_method.min_replicate_presence
+						--min-replicate-presence $choice_prevalence_method.min_replicate_presence
+						--replicate_file $choice_prevalence_method.replicate_file
+					#end if
 				#end if
-			#else if $choice_prevalence_method.prevalence_method == "replicate"
-				#if $choice_prevalence_method.min_replicate_presence
-					--min-replicate-presence $choice_prevalence_method.min_replicate_presence
-					--replicate_file $choice_prevalence_method.replicate_file
+
+				#if $choice_abundance_unit.abundance_unit_type == "count"
+					#if $choice_abundance_unit.min_abundance_count
+						--min-abundance $choice_abundance_unit.min_abundance_count
+					#end if
 				#end if
-			#end if
 
-			#if $choice_abundance_unit.abundance_unit_type == "count"
-				#if $choice_abundance_unit.min_abundance_count
-					--min-abundance $choice_abundance_unit.min_abundance_count
+				#if $choice_abundance_unit.abundance_unit_type == "proportion"
+					#if $choice_abundance_unit.min_abundance_proportion
+						--min-abundance $choice_abundance_unit.min_abundance_proportion
+					#end if
 				#end if
-			#end if
 
-			#if $choice_abundance_unit.abundance_unit_type == "proportion"
-				#if $choice_abundance_unit.min_abundance_proportion
-					--min-abundance $choice_abundance_unit.min_abundance_proportion
+				#if $nb_biggest_clusters
+					--nb-biggest-clusters $nb_biggest_clusters
 				#end if
-			#end if
 
-			#if $nb_biggest_clusters
-				--nb-biggest-clusters $nb_biggest_clusters
-			#end if
-
-
-			#if $contaminantSource.which_contaminantSource == "history"
-				##build index on the fly
-				--contaminant '${contaminantSource.ownContaminantFile}'
-			#else if $contaminantSource.which_contaminantSource == "server"
-				##use precomputed indexes
-				--contaminant '${contaminantSource.contaminants_db.fields.path}'
-			#end if
-
+				#if $contaminantSource.which_contaminantSource == "history"
+					##build index on the fly
+					--contaminant '${contaminantSource.ownContaminantFile}'
+				#else if $contaminantSource.which_contaminantSource == "server"
+					##use precomputed indexes
+					--contaminant '${contaminantSource.contaminants_db.fields.path}'
+				#end if
+		]]>
 	</command>
 	<inputs>
 		<!-- Files -->
@@ -148,11 +142,17 @@
 		<test>
 	        <param name="input_fasta" value="references/03-chimera.fasta" />
             <param name="input_biom" value="references/03-chimera.biom" />
-            <param name="min_sample_presence" value="3" />
+
+			<conditional name="choice_prevalence_method">
+				<param name="prevalence_method" value="all" />
+				<param name="min_sample_presence" value="3" />
+			</conditional>
+
 		    <conditional name="choice_abundance_unit">
 		    	<param name="abundance_unit_type" value="proportion" />
 				<param name="min_abundance_proportion" value="0.00005" />
 		    </conditional>
+			
 	 	    <output name="output_fasta" file="references/04-filters.fasta" compare="diff" lines_diff="0" />
 	 	    <output name="output_biom" file="references/04-filters.biom" compare="sim_size" delta="0" />
 		    <output name="output_excluded" file="references/04-filters.excluded" compare="diff" lines_diff="0" />

@@ -1,4 +1,4 @@
-<tool id="FROGS_clustering" name="FROGS_2 Clustering swarm" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_clustering" name="FROGS_2 Clustering swarm" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
     <description>Single-linkage clustering on sequences </description>
     <macros>
         <import>macros.xml</import>
@@ -7,25 +7,29 @@
         <requirement type="package" version="3.0.0">swarm</requirement>
     </expand>
     <command detect_errors="exit_code">
-    clustering.py
-        @CPUS@
-        --input-fasta '$sequence_file'
-        --input-count '$count_file'
-        --output-biom '$abundance_biom'
-        --output-fasta '$seed_file'
-        --output-compo '$swarms_composition'
-        #if $FROGS_guidelines.guidelines_version == "3.2"
-            --distance $FROGS_guidelines.distance
-            #if $FROGS_guidelines.fastidious == "true"
-                --fastidious
-            #end if
-        #end if
-        #if $FROGS_guidelines.guidelines_version == "3.1"
-            --distance $FROGS_guidelines.distance
-            #if $FROGS_guidelines.denoising == "true"
-                --denoising
-            #end if
-        #end if
+        <![CDATA[ 
+            clustering.py
+                @CPUS@
+                --input-fasta '$sequence_file'
+                --input-count '$count_file'
+                --output-biom '$abundance_biom'
+                --output-fasta '$seed_file'
+                --output-compo '$swarms_composition'
+
+                #if $FROGS_guidelines.guidelines_version == "3.2"
+                    --distance $FROGS_guidelines.distance
+                    #if $FROGS_guidelines.fastidious == "true"
+                        --fastidious
+                    #end if
+                #end if
+                
+                #if $FROGS_guidelines.guidelines_version == "3.1"
+                    --distance $FROGS_guidelines.distance
+                    #if $FROGS_guidelines.denoising == "true"
+                        --denoising
+                    #end if
+                #end if
+        ]]>
     </command>
     <inputs>
         <!-- Files -->

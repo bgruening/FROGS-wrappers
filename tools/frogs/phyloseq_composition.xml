@@ -1,4 +1,4 @@
-<tool id="FROGSSTAT_Phyloseq_Composition_Visualisation" name="FROGSSTAT Phyloseq Composition Visualisation" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGSSTAT_Phyloseq_Composition_Visualisation" name="FROGSSTAT Phyloseq Composition Visualisation" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
     <description>with bar plot and composition plot </description>
     <macros>
         <import>macros.xml</import>
@@ -7,14 +7,16 @@
         <requirement type="package" version="4.9.3">r-plotly</requirement>
     </expand>
     <command detect_errors="exit_code">
-        phyloseq_composition.py
-            --rdata '$data'
-            --varExp '$varExp'
-            --taxaRank1 '$taxaRank1'
-            --taxaSet1 '$taxaSet1'
-            --taxaRank2 '$taxaRank2'
-            --numberOfTaxa $numberOfTaxa
-            --html '$html'
+        [<![CDATA[ 
+            phyloseq_composition.py
+                --rdata '$data'
+                --varExp '$varExp'
+                --taxaRank1 '$taxaRank1'
+                --taxaSet1 '$taxaSet1'
+                --taxaRank2 '$taxaRank2'
+                --numberOfTaxa $numberOfTaxa
+                --html '$html'
+        ]]>
     </command>
     <inputs>
         <!-- Files -->

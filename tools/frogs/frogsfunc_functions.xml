@@ -24,37 +24,36 @@
 
   <expand macro="requirements_frogsfunc" />
 
+  <command detect_errors="exit_code">
+        <![CDATA[ 
+        frogsfunc_functions.py
+                @CPUS@
+                --input-biom $input_biom
+                --input-fasta $input_fasta
+                --input-tree $input_tree
+                --input-marker $input_marker
+                --marker-type $category.value
 
-    <stdio>
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <command >
-       frogsfunc_functions.py
-            @CPUS@
-            --input-biom $input_biom
-            --input-fasta $input_fasta
-            --input-tree $input_tree
-            --input-marker $input_marker
-            --marker-type $category.value
-            #if $category.value == "16S"
-                --functions $functions
-            #end if
-            #if $category.value != "16S"
-                --input-function-table $functions.fields.traits
-            #end if 
-            --max-nsti $max_nsti
-            --min-blast-ident $min_blast_ident
-            --min-blast-cov $min_blast_cov
-	   		--hsp-method $hsp_method
-            --output-biom $output_biom
-            --output-fasta $output_fasta
-            --output-function-abund "frogsfunc_functions_unstrat.tsv"
-            --output-otu-norm $output_otu_norm
-            --output-weighted $output_weighted
-            --output-excluded $output_excluded
-            --summary $summary_file
+                #if $category.value == "16S"
+                    --functions $functions
+                #end if
 
+                #if $category.value != "16S"
+                    --input-function-table $functions.fields.traits
+                #end if 
+
+                --max-nsti $max_nsti
+                --min-blast-ident $min_blast_ident
+                --min-blast-cov $min_blast_cov
+                --hsp-method $hsp_method
+                --output-biom $output_biom
+                --output-fasta $output_fasta
+                --output-function-abund "frogsfunc_functions_unstrat.tsv"
+                --output-otu-norm $output_otu_norm
+                --output-weighted $output_weighted
+                --output-excluded $output_excluded
+                --summary $summary_file
+        ]]>
     </command> 
     <inputs>
         <!-- Input files -->
@@ -93,7 +92,6 @@
             <option value="subtree_average">subtree_average</option>
 		</param>
     </inputs>
-    output_biom,output_fasta,output_copy_ec_abund: )
 
     <outputs>
         <data format="html" name="summary_file" label="${tool.name}: report.html" from_work_dir="report.html"/>
@@ -140,7 +138,6 @@
             <filter>"PHENO" in functions</filter>
         </data>
     </outputs>
-
 
     <tests>
         <test expect_num_outputs="8">

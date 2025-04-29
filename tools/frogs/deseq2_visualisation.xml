@@ -1,4 +1,4 @@
-<tool id="FROGSSTAT_DESeq2_Visualisation" name="FROGSSTAT DESeq2 Visualisation" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGSSTAT_DESeq2_Visualisation" name="FROGSSTAT DESeq2 Visualisation" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
     <description>to extract and visualise differentially abundant ASVs or functions </description>
     <macros>
         <import>macros.xml</import>
@@ -8,21 +8,26 @@
         <requirement type="package" version="0.18">r-dt</requirement>
     </expand>
     <command detect_errors="exit_code">
-    deseq2_visualisation.py
-        --analysis '$analysis'
-        --abundanceData '$abundanceData' 
-        --dds '$dds'
-        --var '$var'
-        #if $varType.vartType_selected == "qual":
-            --mod1 '$varType.mod1' 
-            --mod2 '$varType.mod2'
-        #end if
-        #if $analysis == "FUNCTION":
-            --ipath-over '$over'
-            --ipath-under '$under'
-        #end if
-        --padj $padj
-        --html '$html'
+        <![CDATA[ 
+            deseq2_visualisation.py
+                --analysis '$analysis'
+                --abundanceData '$abundanceData' 
+                --dds '$dds'
+                --var '$var'
+
+                #if $varType.vartType_selected == "qual":
+                    --mod1 '$varType.mod1' 
+                    --mod2 '$varType.mod2'
+                #end if
+
+                #if $analysis == "FUNCTION":
+                    --ipath-over '$over'
+                    --ipath-under '$under'
+                #end if
+                
+                --padj $padj
+                --html '$html'
+        ]]>
     </command>
     <inputs>
         <!-- Files -->

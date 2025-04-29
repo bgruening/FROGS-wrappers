@@ -576,7 +576,7 @@
 			// Data
 			//
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			var processed_filters = ["Blast evalue > 1e-150", "Blast identity < 100.0"] ;
+			var processed_filters = ["Blast evalue > 1e-150", "Blast taxonomies belong to undesired taxon: g__Sarcodon / s__Trichoderma", "Blast identity < 100.0"] ;
 			/* Example:
 				['filterA', 'filterB', 'filterC']
 			*/
@@ -623,7 +623,7 @@
 			 	}
 			 } ;
 			 */
-			var by_samples_results = {"01_subsample": {"initial": 55, "filtered": {"Blast evalue > 1e-150": 30, "Blast identity < 100.0": 1}, "kept": 25}, "02_subsample": {"initial": 55, "filtered": {"Blast evalue > 1e-150": 30, "Blast identity < 100.0": 1}, "kept": 25}, "03_subsample": {"initial": 55, "filtered": {"Blast evalue > 1e-150": 30, "Blast identity < 100.0": 1}, "kept": 25}} ;
+			var by_samples_results = {"01_subsample": {"initial": 55, "filtered": {"Blast evalue > 1e-150": 30, "Blast taxonomies belong to undesired taxon: g__Sarcodon / s__Trichoderma": 6, "Blast identity < 100.0": 1}, "kept": 25}, "02_subsample": {"initial": 55, "filtered": {"Blast evalue > 1e-150": 30, "Blast taxonomies belong to undesired taxon: g__Sarcodon / s__Trichoderma": 6, "Blast identity < 100.0": 1}, "kept": 25}, "03_subsample": {"initial": 55, "filtered": {"Blast evalue > 1e-150": 30, "Blast taxonomies belong to undesired taxon: g__Sarcodon / s__Trichoderma": 6, "Blast identity < 100.0": 1}, "kept": 25}} ;
 			/* Example:
 				{
 					'sampleA':{
@@ -643,7 +643,7 @@
 					}
 				}
 			*/
-			var by_filters_results = [{"filters": ["Blast evalue > 1e-150"], "count": 29}, {"filters": ["Blast evalue > 1e-150", "Blast identity < 100.0"], "count": 1}] ;
+			var by_filters_results = [{"filters": ["Blast evalue > 1e-150"], "count": 23}, {"filters": ["Blast evalue > 1e-150", "Blast taxonomies belong to undesired taxon: g__Sarcodon / s__Trichoderma"], "count": 6}, {"filters": ["Blast evalue > 1e-150", "Blast identity < 100.0"], "count": 1}] ;
 			/* Example:
 				[
 					{'filters':['filterA'], 'count': 10},

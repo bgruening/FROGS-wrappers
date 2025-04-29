@@ -1,61 +1,62 @@
-<tool id="FROGS_affiliation_filters" name="FROGS Affiliation Filters" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_affiliation_filters" name="FROGS Affiliation Filters" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
     <description>Filters ASVs on several affiliation criteria </description>
     <macros>
         <import>macros.xml</import>
     </macros>
     <expand macro="requirements"/>   
     <command detect_errors="exit_code">
-		affiliation_filters.py
-			--input-biom '$input_biom'
-			--input-fasta '$input_fasta'
-			--output-biom '$output_biom'
-			--impacted '$output_impacted'
-			--impacted-multihit '$output_multihit'
-			--summary '$output_summary'
+        <![CDATA[ 
+        affiliation_filters.py
+            --input-biom '$input_biom'
+            --input-fasta '$input_fasta'
+            --output-biom '$output_biom'
+            --impacted '$output_impacted'
+            --impacted-multihit '$output_multihit'
+            --summary '$output_summary'
 
-			#if $mode == "delete"
-				--delete
-				--output-fasta '$output_fasta'
-			#else
-				--mask
-			#end if
+            #if $mode == "delete"
+                --delete
+                --output-fasta '$output_fasta'
+            #else
+                --mask
+            #end if
 
-			--taxonomic-ranks $taxonomic_ranks
+            --taxonomic-ranks $taxonomic_ranks
 
-			#if $rdp.rdp_rank
-				--min-rdp-bootstrap '$rdp.rdp_rank:$rdp.min_rdp_bootstrap'
-			#end if
+            #if $rdp.rdp_rank
+                --min-rdp-bootstrap '$rdp.rdp_rank:$rdp.min_rdp_bootstrap'
+            #end if
 
-			#if $blast.min_blast_length
-				--min-blast-length $blast.min_blast_length
-			#end if
-			#if $blast.max_blast_evalue != None
-				#set $eval = 'a' + str($blast.max_blast_evalue)
-				#if $eval != 'a'
-					--max-blast-evalue $blast.max_blast_evalue
-		 		#end if
-			#end if
-			#if $blast.min_blast_identity
-				--min-blast-identity $blast.min_blast_identity
-			#end if
-			#if $blast.min_blast_coverage
-				--min-blast-coverage $blast.min_blast_coverage
-			#end if
+            #if $blast.min_blast_length
+                --min-blast-length $blast.min_blast_length
+            #end if
+            #if $blast.max_blast_evalue != None
+                #set $eval = 'a' + str($blast.max_blast_evalue)
+                #if $eval != 'a'
+                    --max-blast-evalue $blast.max_blast_evalue
+                #end if
+            #end if
+            #if $blast.min_blast_identity
+                --min-blast-identity $blast.min_blast_identity
+            #end if
+            #if $blast.min_blast_coverage
+                --min-blast-coverage $blast.min_blast_coverage
+            #end if
 
-			#set $sep = ' '
+            #set $sep = ' '
             #if $blast.keep_or_ignore.taxa_choice == "ignore"
-            	--ignore-blast-taxa
+                --ignore-blast-taxa
                 #for $current in $blast.keep_or_ignore.taxon_ignored
                     $sep'${current.ignore_blast_taxa}'
                 #end for
             #end if
             #if $blast.keep_or_ignore.taxa_choice == "keep"
-            	--keep-blast-taxa
+                --keep-blast-taxa
                 #for $current in $blast.keep_or_ignore.taxon_kept
                     $sep'${current.keep_blast_taxa}'
                 #end for
             #end if
-
+        ]]>
 	</command>
     <inputs>
         <!-- Files -->
@@ -118,13 +119,13 @@
         <section name="rdp" title="Filter on RDP affiliations" expanded="false">
             <param name="rdp_rank" type="text" optional="true" value="" label="Taxonomical rank on which to apply bootstrap filter" help="One of the available taxonomical rank name. Ex: Species">
                 <sanitizer invalid_char="">
-                <valid initial="string.letters">
-                    <add value=" " />
-                </valid>
+                    <valid initial="string.letters">
+                        <add value=" " />
+                    </valid>
                 </sanitizer>
                 <validator type="regex">[A-Za-z ]+</validator>
             </param>
-            <param argument="--min-rdp-bootstrap" type="float" min="0.0" max="1.0" optional="true" label="Minimum bootstrap" help="Fill these two fields if you want this treatment"/>
+            <param name="min_rdp_bootstrap" type="float" min="0.0" max="1.0" optional="true" label="Minimum bootstrap" help="Fill these two fields if you want this treatment"/>
         </section>
     </inputs>
     <outputs>
@@ -141,18 +142,25 @@
             <param name="input_fasta" value="references/04-filters.fasta"/>
             <param name="input_biom" value="references/06-affiliation.biom"/>
             <param name="mode" value="hide"/>
-            <param name="rdp_rank" value="Species"/>
-            <param name="min_rdp_bootstrap" value="0.8"/>
-            <param name="min_blast_length" value="150"/>
-            <param name="max_blast_evalue" value="1e-150"/>
-            <param name="min_blast_identity" value="100"/>
-            <param name="min_blast_coverage" value="100"/>
-            <repeat name="taxon_ignored">
-                <param name="ignore_blast_taxa" value="g__Sarcodon"/>
-            </repeat>
-            <repeat name="taxon_ignored">
-                <param name="ignore_blast_taxa" value="s__Trichoderma"/>
-            </repeat>
+            <section name="rdp">
+                <param name="rdp_rank" value="Species"/>
+                <param name="min_rdp_bootstrap" value="0.8"/>
+            </section>
+            <section name="blast">
+                <param name="min_blast_length" value="150"/>
+                <param name="max_blast_evalue" value="1e-150"/>
+                <param name="min_blast_identity" value="100"/>
+                <param name="min_blast_coverage" value="100"/>
+                <conditional name="keep_or_ignore">
+                    <param name="taxa_choice" value= "ignore"/>
+                    <repeat name="taxon_ignored">
+                        <param name="ignore_blast_taxa" value="g__Sarcodon"/>
+                    </repeat>
+                    <repeat name="taxon_ignored">
+                        <param name="ignore_blast_taxa" value="s__Trichoderma"/>
+                    </repeat>
+                </conditional>
+            </section>
             <output name="output_impacted" file="references/07-impacted_clusters_masked.tsv" compare="diff" lines_diff="0"/>
             <output name="output_summary" file="references/07-affiliation_masked.html" compare="diff" lines_diff="0"/>
             <output name="output_multihit" file="references/07-impacted_clusters_masked_multihit.tsv" compare="diff" lines_diff="0"/>
@@ -162,18 +170,25 @@
             <param name="input_fasta" value="references/04-filters.fasta"/>
             <param name="input_biom" value="references/06-affiliation.biom"/>
             <param name="mode" value="delete"/>
-            <param name="rdp_rank" value="Species"/>
-            <param name="min_rdp_bootstrap" value="0.8"/>
-            <param name="min_blast_length" value="150"/>
-            <param name="max_blast_evalue" value="1e-150"/>
-            <param name="min_blast_identity" value="100"/>
-            <param name="min_blast_coverage" value="100"/>
-            <repeat name="taxon_ignored">
-                <param name="ignore_blast_taxa" value="g__Sarcodon"/>
-            </repeat>
-            <repeat name="taxon_ignored">
-                <param name="ignore_blast_taxa" value="s__Trichoderma"/>
-            </repeat>
+            <section name="rdp">
+                <param name="rdp_rank" value="Species"/>
+                <param name="min_rdp_bootstrap" value="0.8"/>
+            </section>
+            <section name="blast">
+                <param name="min_blast_length" value="150"/>
+                <param name="max_blast_evalue" value="1e-150"/>
+                <param name="min_blast_identity" value="100"/>
+                <param name="min_blast_coverage" value="100"/>
+                <conditional name="keep_or_ignore">
+                    <param name="taxa_choice" value= "ignore"/>
+                    <repeat name="taxon_ignored">
+                        <param name="ignore_blast_taxa" value="g__Sarcodon"/>
+                    </repeat>
+                    <repeat name="taxon_ignored">
+                        <param name="ignore_blast_taxa" value="s__Trichoderma"/>
+                    </repeat>
+                </conditional>
+            </section>
             <output name="output_impacted" file="references/07-impacted_clusters_deleted.tsv" compare="diff" lines_diff="0"/>
             <output name="output_summary" file="references/07-affiliation_deleted.html" compare="diff" lines_diff="0"/>
             <output name="output_multihit" file="references/07-impacted_clusters_deleted_multihit.tsv" compare="diff" lines_diff="0"/>

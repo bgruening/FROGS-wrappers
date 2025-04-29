@@ -1,15 +1,17 @@
-<tool id="FROGSSTAT_Phyloseq_Sample_Clustering" name="FROGSSTAT Phyloseq Sample Clustering" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGSSTAT_Phyloseq_Sample_Clustering" name="FROGSSTAT Phyloseq Sample Clustering" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
 	<description>of samples using different linkage methods </description>
     <macros>
         <import>macros.xml</import>
     </macros>
     <expand macro="requirements_phyloseq" />
     <command detect_errors="exit_code">
-    phyloseq_clustering.py
-        --html '$html'
-        --rdata '$data'
-        --varExp '$varExp'
-        --distance-matrix '$distance_matrix'
+        [<![CDATA[ 
+            phyloseq_clustering.py
+                --html '$html'
+                --rdata '$data'
+                --varExp '$varExp'
+                --distance-matrix '$distance_matrix'
+        ]]>
 	</command>
     <inputs>
 		<!-- Files -->

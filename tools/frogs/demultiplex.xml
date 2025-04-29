@@ -1,23 +1,26 @@
-<tool id="FROGS_demultiplex" name="FROGS_0 Demultiplex reads" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_demultiplex" name="FROGS_0 Demultiplex reads" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
 	<description>Attribute reads to samples in function of inner barcode </description>
     <macros>
         <import>macros.xml</import>
     </macros>
     <expand macro="requirements" />
     <command detect_errors="exit_code">
-		demultiplex.py
-		#if str( $fastq_input.fastq_input_selector ) == "paired":
-		    --input-R1 '${fastq_input.fastq_input1}'
-		    --input-R2 '${fastq_input.fastq_input2}'
-		#else:
-		    --input-R1 '${fastq_input.fastq_input1}'
-		#end if
-		--input-barcode '$input_barcode'
-	    --mismatches $mismatches
-	    --end '$end'
-	    --summary '$summary'
-	    --output-demultiplexed '$demultiplexed_archive'
-	    --output-excluded '$undemultiplexed_archive'
+		<![CDATA[ 
+			demultiplex.py
+				#if str( $fastq_input.fastq_input_selector ) == "paired":
+					--input-R1 '${fastq_input.fastq_input1}'
+					--input-R2 '${fastq_input.fastq_input2}'
+				#else:
+					--input-R1 '${fastq_input.fastq_input1}'
+				#end if
+				
+				--input-barcode '$input_barcode'
+				--mismatches $mismatches
+				--end '$end'
+				--summary '$summary'
+				--output-demultiplexed '$demultiplexed_archive'
+				--output-excluded '$undemultiplexed_archive'
+		]]>
 	</command>
 	<inputs>
 		<!-- Input file -->
@@ -54,9 +57,9 @@
             <param name="input_barcode" value="input/demultiplex_barcode.txt"/>
 			<conditional name="fastq_input">
                 <param name="fastq_input_selector" value="paired"/>
+				<param name="fastq_input1" value="input/demultiplex_test2_R1.fq.gz"/>
+				<param name="fastq_input2" value="input/demultiplex_test2_R2.fq.gz"/>
             </conditional>
-            <param name="fastq_input1" value="input/demultiplex_test2_R1.fq.gz"/>
-            <param name="fastq_input2" value="input/demultiplex_test2_R2.fq.gz"/>
             <param name="mismatches" value="1"/>
             <param name="end" value="both"/>
             <output name="summary" file="references/demultiplex_summary.txt" compare="sim_size" delta="0" />

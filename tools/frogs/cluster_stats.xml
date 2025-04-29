@@ -1,13 +1,15 @@
-<tool id="FROGS_cluster_stats" name="FROGS_Cluster_Stat" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_cluster_stats" name="FROGS_Cluster_Stat" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
 	<description>Process some metrics on clusters </description>
     <macros>
         <import>macros.xml</import>
     </macros>
     <expand macro="requirements"/>
     <command detect_errors="exit_code">
-	cluster_stats.py
-		--input-biom '$biom'
-		--output-file '$summary_file'
+		<![CDATA[
+			cluster_stats.py
+				--input-biom '$biom'
+				--output-file '$summary_file'
+		]]>
 	</command>
 	<inputs>
 		<param format="biom1" name="biom" type="data" label="Abundance file" help="Clusters abundance (format: BIOM)"/>

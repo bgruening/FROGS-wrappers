@@ -1,4 +1,4 @@
-<tool id="FROGSSTAT_DESeq2_Preprocess" name="FROGSSTAT DESeq2 Preprocess" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGSSTAT_DESeq2_Preprocess" name="FROGSSTAT DESeq2 Preprocess" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
     <description>import a Phyloseq object and prepare it for DESeq2 differential abundance analysis </description>
     <macros>
         <import>macros.xml</import>
@@ -8,22 +8,23 @@
         <requirement type="package" version="1.6.6">r-optparse</requirement>
     </expand>
     <command detect_errors="exit_code">
-    deseq2_preprocess.py
-        --analysis '$analysis_type.analysis'
-        #if $analysis_type.analysis == 'ASV'
-            --data '$data'
-            --out-Rdata '$dds_asv'
-        #else:
-            --input-functions '$input_functions'
-            --samplefile '$samplefile'
-            --out-Rdata '$dds_function'
-        #end if
-        #if $multiple.seconde == 'true'
-            --var '$var1${multiple.mod}${multiple.var2}'
-        #else
-            --var '$var1'
-        #end if
-
+        <![CDATA[ 
+            deseq2_preprocess.py
+                --analysis '$analysis_type.analysis'
+                #if $analysis_type.analysis == 'ASV'
+                    --data '$data'
+                    --out-Rdata '$dds_asv'
+                #else:
+                    --input-functions '$input_functions'
+                    --samplefile '$samplefile'
+                    --out-Rdata '$dds_function'
+                #end if
+                #if $multiple.seconde == 'true'
+                    --var '$var1${multiple.mod}${multiple.var2}'
+                #else
+                    --var '$var1'
+                #end if
+        ]]>
     </command>
     <inputs>
         <!-- Files -->

@@ -1,21 +1,25 @@
-<tool id="FROGS_affiliation_postprocess" name="FROGS Affiliation postprocess" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_affiliation_postprocess" name="FROGS Affiliation postprocess" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
     <description>Aggregates ASVs based on alignment metrics </description>
     <macros>
         <import>macros.xml</import>
     </macros>
     <expand macro="requirements"/>
     <command detect_errors="exit_code">
-        affiliation_postprocess.py
-		#if $is_HVL.HVL_amplicon == "Yes"
-            --reference '$is_HVL.reference.fields.path'
-        #end if
-		--identity $identity
-		--coverage $coverage
-        --input-biom '$input_biom'
-        --input-fasta '$input_fasta'
-        --output-biom '$biom_out'
-        --output-fasta '$fasta_out'
-        --output-compo '$compo_out'
+        <![CDATA[ 
+            affiliation_postprocess.py
+
+            #if $is_HVL.HVL_amplicon == "Yes"
+                --reference '$is_HVL.reference.fields.path'
+            #end if
+            
+            --identity $identity
+            --coverage $coverage
+            --input-biom '$input_biom'
+            --input-fasta '$input_fasta'
+            --output-biom '$biom_out'
+            --output-fasta '$fasta_out'
+            --output-compo '$compo_out'
+        ]]>
 	</command>
     <inputs>
         <!-- Files -->
@@ -48,7 +52,10 @@
         <test>
             <param name="input_biom" value="references/06-affiliation.biom"/>
             <param name="input_fasta" value="references/04-filters.fasta"/>
-            <param name="reference" value="Unite_extract_ITS1_test"/>
+            <conditional name="is_HVL">
+                <param name="HVL_amplicon" value="Yes"/>
+                <param name="reference" value="Unite_extract_ITS1_test"/>
+            </conditional>
             <output name="compo_out" file="references/08-affiliation_postprocessed.compo.tsv" compare="diff" lines_diff="0"/>
             <output name="fasta_out" file="references/08-affiliation_postprocessed.fasta" compare="diff" lines_diff="0"/>
             <output name="biom_out" file="references/08-affiliation_postprocessed.biom" compare="sim_size" delta="0"/>

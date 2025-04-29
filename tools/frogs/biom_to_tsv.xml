@@ -1,19 +1,21 @@
-<tool id="FROGS_biom_to_tsv" name="FROGS BIOM to TSV" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="20.05">
+<tool id="FROGS_biom_to_tsv" name="FROGS BIOM to TSV" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" license="GPL-2.0-only" profile="22.05">
 	<description>Converts a BIOM file in TSV file </description>
     <macros>
         <import>macros.xml</import>
     </macros>
     <expand macro="requirements"/>
     <command detect_errors="exit_code">
-	biom_to_tsv.py
-	    --input-biom '$biom_file'
-		#if $sequence_file
-		    --input-fasta '$sequence_file'
-		#end if
-		--output-tsv '$tsv_file'
-		#if $extract_multi_align == "yes"
-		    --output-multi-affi '$multi_affi_file'
-	    #end if
+		<![CDATA[ 
+			biom_to_tsv.py
+				--input-biom '$biom_file'
+				#if $sequence_file
+					--input-fasta '$sequence_file'
+				#end if
+				--output-tsv '$tsv_file'
+				#if $extract_multi_align == "yes"
+					--output-multi-affi '$multi_affi_file'
+				#end if
+		]]>
 	</command>
 	<inputs>
 		<!-- Files -->
