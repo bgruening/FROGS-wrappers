@@ -4,7 +4,7 @@
         <import>macros.xml</import>
     </macros>
     <expand macro="requirements">
-        <requirement type="package" version="7.407">mafft</requirement>
+        <requirement type="package" version="7.525">mafft</requirement>
         <requirement type="package" version="2.1.9">fasttree</requirement>
         <requirement type="package" version="4.1.2">r-base</requirement>
         <requirement type="package" version="4.1">r-essentials</requirement>
