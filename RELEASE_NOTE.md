@@ -1,4 +1,4 @@
-# v4.2.0+galaxy1 [2025-04]
+# v4.2.0+galaxy0 [2025-04]
 
 This version refers to FROGS_4.2.0 suit.
 ### Function added:
