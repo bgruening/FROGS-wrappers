@@ -9,7 +9,7 @@
         <requirement type="package" version="2.10">cutadapt</requirement>
     </expand> 
     <command detect_errors="exit_code">
-        [<![CDATA[ 
+        <![CDATA[ 
             preprocess.py '$sequencer_type.sequencer_selected'
             --output-dereplicated '$dereplicated_file' --output-count '$count_file' --summary '$summary_file'
             @CPUS@
