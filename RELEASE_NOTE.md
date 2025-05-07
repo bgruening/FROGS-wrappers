@@ -1,3 +1,22 @@
+# v4.2.0+galaxy1 [2025-05]
+
+This version refers to FROGS_4.2.0 suit.
+### Bug corrected
+
+  Correction of a command syntaxe error in multiple tools : 
+  preprocess.xml
+  remove_chimera.xml
+  normalisation.xml
+  frogsfunc_pathways.xml
+  frogsfunc_placeseqs.xml
+  phyloseq_alpha_diversity.xml
+  phyloseq_beta_diversity.xml
+  phyloseq_clustering.xml
+  phyloseq_composition.xml
+  phyloseq_import_data.xml
+  phyloseq_manova.xml
+  phyloseq_structure.xml
+
 # v4.2.0+galaxy0 [2025-04]
 
 This version refers to FROGS_4.2.0 suit.
