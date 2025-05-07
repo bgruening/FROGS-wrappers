@@ -7,7 +7,7 @@
         <requirement type="package" version="4.9.3">r-plotly</requirement>
     </expand>
     <command detect_errors="exit_code">
-        [<![CDATA[ 
+        <![CDATA[ 
             phyloseq_composition.py
                 --rdata '$data'
                 --varExp '$varExp'

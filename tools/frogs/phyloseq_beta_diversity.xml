@@ -7,7 +7,7 @@
         <requirement type="package" version="2.3">r-gridextra</requirement>
     </expand>
     <command detect_errors="exit_code">
-        [<![CDATA[ 
+        <![CDATA[ 
             phyloseq_beta_diversity.py
                 --rdata '$data'
                 --varExp '$varExp'
@@ -58,7 +58,7 @@
             <param name="varExp" value="EnvType"/>
             <param name="methods" value="cc,unifrac"/>
             <!-- sinon test le nombre de fois où il y a img src= on en attend 2 -->
-            <output name="html" file="references/19-phylo_beta_div.nb.html" compare="diff" lines_diff="0" count="2" />
+            <output name="html" file="references/19-phylo_beta_div.nb.html" compare="diff" lines_diff="0" count="3" />
             <output name="html">
                 <discovered_dataset designation="unifrac.tsv" ftype="tsv" file="references/unifrac.tsv" compare="diff" lines_diff="0"/>
             </output>

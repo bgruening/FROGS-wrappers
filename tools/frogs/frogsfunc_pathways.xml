@@ -25,7 +25,7 @@
   <expand macro="requirements_frogsfunc" />
 
   <command detect_errors="exit_code">
-    [<![CDATA[    
+    <![CDATA[    
        frogsfunc_pathways.py
           --input-file $input_file
 

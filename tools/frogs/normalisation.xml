@@ -24,7 +24,7 @@
     <expand macro="requirements"/>
 
 	<command detect_errors="exit_code">
-		[<![CDATA[ 
+		<![CDATA[ 
 		normalisation.py 
 			--input-biom '$input_biom'
 			--input-fasta '$input_fasta'

@@ -27,7 +27,7 @@
   </expand>
 
   <command detect_errors="exit_code">
-    [<![CDATA[ 
+    <![CDATA[ 
 	   	frogsfunc_placeseqs.py
 	   		--input-fasta $input_fasta
 	   		--input-biom $input_biom
