@@ -7,7 +7,7 @@
         <requirement type="package" version="2.17.0">vsearch</requirement>
     </expand>
     <command detect_errors="exit_code">
-        [<![CDATA[ 
+        <![CDATA[ 
             remove_chimera.py
                 @CPUS@
                 --input-fasta '$sequence_file' --non-chimera '$non_chimera_fasta'
